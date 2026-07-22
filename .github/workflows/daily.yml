@@ -1,0 +1,45 @@
+name: JD Price Daily Update
+
+on:
+  schedule:
+    - cron: "0 1 * * *"        # 每天 UTC 01:00 = 北京时间 09:00
+  workflow_dispatch: {}        # 允许在 Actions 页面手动触发
+
+permissions:
+  contents: write              # 允许工作流把更新后的价格写回仓库
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Fetch prices from JD
+        env:
+          JD_COOKIE: ${{ secrets.JD_COOKIE }}   # 可选：填了才有券后到手价；留空也有挂牌价
+        run: python tracker.py
+
+      - name: Build static site
+        run: python build.py
+
+      - name: Commit & push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/prices.json docs/
+          # 仅在有变化时提交，避免空 commit 触发无限循环
+          if ! git diff --cached --quiet; then
+            git commit -m "auto: update JD prices $(date +%F)"
+            git push
+          else
+            echo "无价格变化，跳过提交"
+          fi

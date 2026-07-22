@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 京东价格监控 - macOS 每日定时任务（抓取 + 构建 + 发布） -->
+<!-- 用法：
+     1. 把本文件里所有 /ABS/PATH/TO 替换成 jd_price_tracker 的真实绝对路径
+        例如：/Users/你的用户名/Projects/jd_price_tracker
+     2. 复制到 ~/Library/LaunchAgents/：
+        cp com.jd.pricetracker.plist ~/Library/LaunchAgents/
+     3. 加载（每天 09:00 自动跑，加载时也会立刻跑一次）：
+        launchctl load ~/Library/LaunchAgents/com.jd.pricetracker.plist
+     卸载：
+        launchctl unload ~/Library/LaunchAgents/com.jd.pricetracker.plist
+
+     说明：脚本会依次执行 tracker.py（抓价写入 data/prices.json）、
+     build.py（构建 docs/ 静态站）、git push（推到 GitHub Pages 自动发布）。
+     全程脚本、无需 AI、0 token。cookie 失效时重填 config.json 即可。-->
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.jd.pricetracker</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>PATH</key>
+      <string>/usr/bin:/bin:/usr/local/bin:/opt/homebrew/bin:/usr/sbin:/sbin</string>
+      <key>HOME</key>
+      <string>/ABS/PATH/TO_HOME</string>
+    </dict>
+    <key>ProgramArguments</key>
+    <array>
+      <string>/bin/bash</string>
+      <string>/ABS/PATH/TO/jd_price_tracker/run_daily.sh</string>
+    </array>
+    <key>StartCalendarInterval</key>
+    <dict>
+      <key>Hour</key><integer>9</integer>
+      <key>Minute</key><integer>0</integer>
+    </dict>
+    <key>WorkingDirectory</key>
+    <string>/ABS/PATH/TO/jd_price_tracker</string>
+    <key>StandardOutPath</key>
+    <string>/ABS/PATH/TO/jd_price_tracker/tracker.log</string>
+    <key>StandardErrorPath</key>
+    <string>/ABS/PATH/TO/jd_price_tracker/tracker.log</string>
+    <key>RunAtLoad</key>
+    <true/>
+  </dict>
+</plist>

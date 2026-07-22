@@ -1,0 +1,31 @@
+{
+  "area": "1_72_4137_0",
+  "cat": "670_671_672",
+  "cookie": "",
+  "skus": [
+    {
+      "sku": "100292929859",
+      "brand": "联想 ThinkPad",
+      "name": "ThinkBook 14+ 2026 Ultra5 336H 16G 1T 3K 14.5英寸 月神灰",
+      "category": "14.5英寸 / 16G"
+    },
+    {
+      "sku": "100292930183",
+      "brand": "联想 ThinkPad",
+      "name": "ThinkBook 16+ 2026 Ultra5 336H 16G 1T 3.2K 16英寸 月神灰",
+      "category": "16英寸 / 16G"
+    },
+    {
+      "sku": "100261714031",
+      "brand": "联想 ThinkPad",
+      "name": "ThinkBook 16+ 2026 Ultra5 338H 32G 1T 3.2K 16英寸 月神灰",
+      "category": "16英寸 / 32G"
+    },
+    {
+      "sku": "100349222672",
+      "brand": "联想 ThinkPad",
+      "name": "ThinkBook 14+ 2026 Ultra5 338H 32G 1T 3K 14.5英寸 月神灰",
+      "category": "14.5英寸 / 32G"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+# 日志与缓存
+tracker.log
+__pycache__/
+*.pyc
+.DS_Store
+
+# 本地临时发布目录（CloudStudio 一次性部署用，非自动发布源）
+dist/
